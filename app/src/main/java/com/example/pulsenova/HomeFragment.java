@@ -4,9 +4,22 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
+import android.os.Looper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
+
+import java.util.Random;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import okhttp3.WebSocket;
+import okhttp3.WebSocketListener;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -55,10 +68,64 @@ public class HomeFragment extends Fragment {
         }
     }
 
+    private WebSocketManager webSocketManager;
+    private Button count;
+    private TextView temprature;
+
+    private WebSocket WebSocket;
+    private OkHttpClient client;
+    private Handler handler;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        webSocketManager = new WebSocketManager();
+        count = view.findViewById(R.id.count);
+        temprature = view.findViewById(R.id.temperature_value);
+
+        handler = new Handler(Looper.getMainLooper());
+        client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url("wss:6b7b-1-53-82-235.ngrok-free.app")
+                .build();
+
+        WebSocketListener listener = new WebSocketListener() {
+            @Override
+            public void onOpen(WebSocket webSocket, Response response) {
+                super.onOpen(webSocket, response);
+            }
+
+            @Override
+            public void onMessage(WebSocket webSocket, String text) {
+                super.onMessage(webSocket, text);
+               handler.post(() -> temprature.setText(text));
+            }
+            @Override
+            public void onClosing(WebSocket webSocket, int code, String reason) {
+                super.onClosing(webSocket, code, reason);
+                webSocket.close(1000, null);
+            }
+
+            @Override
+            public void onFailure(WebSocket webSocket, Throwable t, Response response) {
+                super.onFailure(webSocket, t, response);
+                t.printStackTrace();
+            }
+        };
+
+        WebSocket = client.newWebSocket(request, listener);
+
+        count.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Random random = new Random();
+                int randomInt = random.nextInt(100);
+                WebSocket.send(randomInt + "");
+            }
+        });
+        return view;
     }
 }

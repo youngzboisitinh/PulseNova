@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context=".WelcomeActivity">
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2">
+        <ImageView
+            android:layout_marginTop="20dp"
+            android:id="@+id/logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/logo"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/logo"
+            android:text="Healthcare"
+            android:id="@+id/title1"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            android:textColor="#223A6A"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/title2"
+            android:text="Let's get statred!"
+            android:textStyle="bold"
+            android:textSize="22dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/title1"
+            android:layout_marginTop="25dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/title2"
+            android:id="@+id/title3"
+            android:text="Login to Stay healthy and fit"
+            android:textSize="15dp"
+            android:textColor="#857979"/>
+        <Button
+            android:id="@+id/login"
+            android:layout_width="300dp"
+            android:layout_height="65dp"
+            android:background="@drawable/radius"
+            android:layout_above="@id/sign_up"
+            android:layout_centerHorizontal="true"
+            android:text="Login"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            android:textStyle="bold"/>
+        <Button
+            android:layout_marginTop="20dp"
+            android:id="@+id/sign_up"
+            android:layout_width="300dp"
+            android:layout_height="65dp"
+            android:background="@drawable/radius1"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:text="Sign Up"
+            android:textColor="#407CE2"
+            android:textSize="16dp"
+            android:textStyle="bold"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+</LinearLayout>
