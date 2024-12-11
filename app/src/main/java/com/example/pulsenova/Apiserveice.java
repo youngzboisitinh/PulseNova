@@ -12,10 +12,13 @@ import retrofit2.http.POST;
 public interface Apiserveice {
     Gson gson = new GsonBuilder().setDateFormat("dd-MM-yyyy HH:mm:ss").create();
     Apiserveice apiserveice = new Retrofit.Builder()
-            .baseUrl("https://6b7b-1-53-82-235.ngrok-free.app/")
+            .baseUrl("https://00c4-1-53-48-254.ngrok-free.app")
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build().create(Apiserveice.class);
 
-    @POST("login")
+    @POST("/login")
     Call<User> login(@Body User loginUser);
+
+    @POST("/")
+    Call<String> sendToken(@Body String token);
 }

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "351470769236",
+    "project_id": "nt131p12",
+    "storage_bucket": "nt131p12.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:351470769236:android:7a68447711384b39ad09c1",
+        "android_client_info": {
+          "package_name": "com.example.pulsenova"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD--9DsAAbpb0xpOsKsGHPf16TEL2vnvaM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -68,9 +68,7 @@ public class HomeFragment extends Fragment {
         }
     }
 
-    private WebSocketManager webSocketManager;
-    private Button count;
-    private TextView temprature;
+    private TextView temprature, bpm, spo2;
 
     private WebSocket WebSocket;
     private OkHttpClient client;
@@ -82,14 +80,14 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        webSocketManager = new WebSocketManager();
-        count = view.findViewById(R.id.count);
-        temprature = view.findViewById(R.id.temperature_value);
+        bpm = view.findViewById(R.id.heart_rate_value);
+        temprature = view.findViewById(R.id.body_temperature_value);
+        spo2 = view.findViewById(R.id.spo2_value);
 
         handler = new Handler(Looper.getMainLooper());
         client = new OkHttpClient();
         Request request = new Request.Builder()
-                .url("wss:6b7b-1-53-82-235.ngrok-free.app")
+                .url("wss:00c4-1-53-48-254.ngrok-free.app")
                 .build();
 
         WebSocketListener listener = new WebSocketListener() {
@@ -101,7 +99,10 @@ public class HomeFragment extends Fragment {
             @Override
             public void onMessage(WebSocket webSocket, String text) {
                 super.onMessage(webSocket, text);
-               handler.post(() -> temprature.setText(text));
+                String[] data = text.split(",");
+                handler.post(() -> temprature.setText(data[0]+"C'"));
+                handler.post(() -> bpm.setText(data[1]+"bpm"));
+                handler.post(() -> spo2.setText(data[2]+"%"));
             }
             @Override
             public void onClosing(WebSocket webSocket, int code, String reason) {
@@ -117,15 +118,6 @@ public class HomeFragment extends Fragment {
         };
 
         WebSocket = client.newWebSocket(request, listener);
-
-        count.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Random random = new Random();
-                int randomInt = random.nextInt(100);
-                WebSocket.send(randomInt + "");
-            }
-        });
         return view;
     }
 }
