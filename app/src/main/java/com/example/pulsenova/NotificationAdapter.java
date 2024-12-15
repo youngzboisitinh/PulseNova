@@ -33,7 +33,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         Notification notification = notifications.get(position);
         holder.title.setText(notification.getTitle());
         holder.date.setText(notification.getDate());
-
+        holder.body.setText(notification.getBody());
     }
 
     @Override
@@ -42,11 +42,12 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView title, date;
+        TextView title, date, body;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.report_title);
             date = itemView.findViewById(R.id.report_date);
+            body = itemView.findViewById(R.id.report_body);
         }
     }
 }

@@ -16,6 +16,10 @@ import android.widget.ArrayAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 
 public class NotificationsFragment extends Fragment {
 
@@ -28,13 +32,25 @@ public class NotificationsFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         List<Notification> notifications = new ArrayList<>();
-        notifications.add(new Notification("General report", "Nov 12, 2024"));
-        notifications.add(new Notification("General report", "Nov 11, 2024"));
-        notifications.add(new Notification("General report", "Nov 10, 2024"));
 
-        NotificationAdapter adapter = new NotificationAdapter(getContext(), notifications);
-        recyclerView.setAdapter(adapter);
+        Apiserveice.apiserveice.getNotification().enqueue(new Callback<List<NotificationModel>>() {
+            @Override
+            public void onResponse(Call<List<NotificationModel>> call, Response<List<NotificationModel>> response) {
+                if (response.code() == 200){
 
+                    for (int i = 0; i < response.body().size(); i++){
+                        notifications.add(new Notification(response.body().get(i).getTitle(), response.body().get(i).getDate(), response.body().get(i).getBody()));
+                    }
+                    NotificationAdapter adapter = new NotificationAdapter(getContext(), notifications);
+                    recyclerView.setAdapter(adapter);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<NotificationModel>> call, Throwable throwable) {
+
+            }
+        });
         return view;
     }
 }

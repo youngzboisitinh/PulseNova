@@ -87,7 +87,7 @@ public class HomeFragment extends Fragment {
         handler = new Handler(Looper.getMainLooper());
         client = new OkHttpClient();
         Request request = new Request.Builder()
-                .url("wss:00c4-1-53-48-254.ngrok-free.app")
+                .url("wss:b26c-58-186-197-9.ngrok-free.app")
                 .build();
 
         WebSocketListener listener = new WebSocketListener() {
@@ -104,11 +104,11 @@ public class HomeFragment extends Fragment {
                 handler.post(() -> bpm.setText(data[1]+"bpm"));
                 handler.post(() -> spo2.setText(data[2]+"%"));
             }
-            @Override
-            public void onClosing(WebSocket webSocket, int code, String reason) {
-                super.onClosing(webSocket, code, reason);
-                webSocket.close(1000, null);
-            }
+//            @Override
+//            public void onClosing(WebSocket webSocket, int code, String reason) {
+//                super.onClosing(webSocket, code, reason);
+//                webSocket.close(1000, null);
+//            }
 
             @Override
             public void onFailure(WebSocket webSocket, Throwable t, Response response) {
@@ -117,7 +117,9 @@ public class HomeFragment extends Fragment {
             }
         };
 
-        WebSocket = client.newWebSocket(request, listener);
+        if (WebSocket == null){
+            WebSocket = client.newWebSocket(request, listener);
+        }
         return view;
     }
 }

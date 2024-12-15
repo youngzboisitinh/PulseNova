@@ -113,7 +113,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="start"
                         android:layout_marginTop="8dp"
-                        android:text="111bpm"
+                        android:text="NaN bpm"
                         android:textSize="45sp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -166,7 +166,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_marginTop="8dp"
-                            android:text="95%"
+                            android:text="NaN %"
                             android:textSize="45sp"
                             android:textStyle="bold" />
                     </LinearLayout>
@@ -211,7 +211,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_marginTop="8dp"
-                            android:text="96 F'"
+                            android:text="NaN C'"
                             android:textSize="46sp"
                             android:textStyle="bold" />
                     </LinearLayout>
