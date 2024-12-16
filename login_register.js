@@ -2,6 +2,8 @@ const { User } = require('./userModel');
 const { generateToken } = require('./AuthenticationService');
 const bcrypt = require('bcrypt');
 
+var email = '';
+
 const login = async (req, res) => {
     const data = req.body;
     try {
@@ -19,8 +21,7 @@ const login = async (req, res) => {
                 error: 'Invalid password'
             });
         }
-        const token = generateToken({ email: user.email, password: user.password });
-        res.setHeader('Authorization', token);
+        email = user.email;
         return res.status(200).json({
             success: true,
             user: {
@@ -56,8 +57,6 @@ const register = async (req, res) => {
                     email: req.body.email,
                     password: hashedPassword,
                 });
-                const savedUser = await newUser.save();
-                const token = generateToken({ email: savedUser.email, password: savedUser.password });
                 res.setHeader('Authorization', token);
                 res.status(201).json({
                     success: true,
@@ -83,4 +82,4 @@ const register = async (req, res) => {
     }
 }
 
-module.exports = { login, register };
+module.exports = { login, register, email };
